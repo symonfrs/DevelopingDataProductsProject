@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Worker's Compensation Insurance</title>
+  <meta charset="utf-8">
+  <meta name="description" content="Worker's Compensation Insurance">
+  <meta name="author" content="Symon Francis">
+  <meta name="generator" content="slidify" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/phone.css" 
+    media="only screen and (max-device-width: 480px)" >
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="libraries/highlighters/highlight.js/css/tomorrow.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->  <link rel=stylesheet href="./assets/css/ribbons.css"></link>
+
+  
+  <!-- Grab CDN jQuery, fall back to local if offline -->
+  <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+  <script>window.jQuery || document.write('<script src="libraries/widgets/quiz/js/jquery.js"><\/script>')</script> 
+  <script data-main="libraries/frameworks/io2012/js/slides" 
+    src="libraries/frameworks/io2012/js/require-1.0.8.min.js">
+  </script>
+  
+  
+
+</head>
+<body style="opacity: 0">
+  <slides class="layout-widescreen">
+    
+    <!-- LOGO SLIDE -->
+        <slide class="title-slide segue nobackground">
+  <hgroup class="auto-fadein">
+    <h1>Worker's Compensation Insurance</h1>
+    <h2>Client Segmentation using data from CRAN insuranceData Package</h2>
+    <p>Symon Francis<br/>Coursera Student</p>
+  </hgroup>
+  <article></article>  
+</slide>
+    
+
+    <!-- SLIDES -->
+    <slide class="" id="slide-1" style="background:;">
+  <hgroup>
+    <h2>Introduction</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>The Worker&#39;s Compensation Insurance Client Segmentation App is created using the Workers Compensation data from the CRAN insuranceData package.</p>
+
+<h4>Key Features</h4>
+
+<ol>
+<li>Allows exploration of multiple year insurance premium and loss data for multiple clients</li>
+<li>Modifies input data to make it more client specific</li>
+<li>Computes additional data parameters that would allow evaluation of clients viz.
+
+<ul>
+<li>Average Annual Premium</li>
+<li>Overall Loss Ratio Percentage</li>
+<li>Selected Period Loss Ratio Percentage</li>
+</ul></li>
+<li>Allows client segmentation based on the above data parameters using k-means clustering</li>
+<li>Allows flexibility to users for segmenting the data by a number of parameters</li>
+</ol>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>Input Data</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>The input data used for developing the App is the Worker&#39;s Compensation insurance data available from CRAN insuranceData package.</p>
+
+<p>The data has 847 rows and 4 colums representing premium and loss data specific to 121 clients for 7 years. The data fields representing Client, Year, Premium and Loss are CL, YR, PR, LOSS. </p>
+
+<p>The computed client specific data parameters available to users for segmenting the data are:</p>
+
+<ul>
+<li>Average Annual Premium - Total Premium averaged over 7 years</li>
+<li>Total Loss - Total loss summed up for 7 years</li>
+<li>Overall Loss Ratio - Total loss divided by Total Premium (across 7 years)</li>
+<li>Selected Period Loss Ratio - Loss Ratio for selected period of years</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>Output Plot - Histogram</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>The outputs from the App include Histgrams for two computed data parameters viz. Average Annual Premium and Overall Loss Ratio Percentage by Cient. </p>
+
+<p>The Histogram for Average Annual Premium values of all the clients is as shown below:
+<img src="assets/fig/first-plot-1.png" title="plot of chunk first-plot" alt="plot of chunk first-plot" style="display: block; margin: auto;" /></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>Output Plot - k-means clusters</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>Among the key outputs from the App are the plots displaying k-means clusters for the subset data defined by the users. 
+The users have the flexibility to subset the data with the help of input widgets specific to data ranges of Average Annual Premium, Number years in consideration, Overall Loss Ratio and Loss Ratio for user-defined number of years. </p>
+
+<p>A sample plot displaying five k-means clusters when data for all 121 clients are considered is as below:
+<img src="assets/fig/second-plot-1.png" title="plot of chunk second-plot" alt="plot of chunk second-plot" style="display: block; margin: auto;" /></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+    <slide class="backdrop"></slide>
+  </slides>
+  <div class="pagination pagination-small" id='io2012-ptoc' style="display:none;">
+    <ul>
+      <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=1 title='Introduction'>
+         1
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=2 title='Input Data'>
+         2
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=3 title='Output Plot - Histogram'>
+         3
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=4 title='Output Plot - k-means clusters'>
+         4
+      </a>
+    </li>
+  </ul>
+  </div>  <!--[if IE]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    </script>
+    <script>CFInstall.check({mode: 'overlay'});</script>
+  <![endif]-->
+</body>
+  <!-- Load Javascripts for Widgets -->
+  
+  <!-- LOAD HIGHLIGHTER JS FILES -->
+  <script src="libraries/highlighters/highlight.js/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <!-- DONE LOADING HIGHLIGHTER JS FILES -->
+   
+  </html>
