@@ -15,13 +15,15 @@ shinyServer(function(input, output, session) {
     # Prepare data for the app
     DT <- data.table(WCdat)
     WCdatByClient<-DT[, lapply(.SD,sum), by=list(Client)]
-
+    
+    # Calculate additional data parameters
     WCdatByClient$AvgAnlPremium<-round(WCdatByClient$Premium/7000000,2)
     WCdatByClient$OverallLossRatio<-round((WCdatByClient$Loss/WCdatByClient$Premium)*100,2)
     WCdatByClient$TotalPremium<-round(WCdatByClient$Premium/1000000,2)
     WCdatByClient$TotalLoss<-round(WCdatByClient$Loss/1000000,2)
+    WCdatByClientTopL<-WCdatByClient[1:6,]
     
-    # Use the selected variable to craete a new data frame
+    # Use the selected variable ranges to create a new data frame
     selectedData <- reactive({
         prmrange<-input$prmrange
         WCdatByClientS<-subset(WCdatByClient,WCdatByClient$AvgAnlPremium<=prmrange)
@@ -31,8 +33,9 @@ shinyServer(function(input, output, session) {
                "Overall Loss Ratio"={
                    TLRRangeLow<-input$TLRRange[1]
                    TLRRangeHigh<-input$TLRRange[2]
-                   
-                   WCdatByClientSS<-subset(WCdatByClientS,WCdatByClientS$OverallLossRatio>TLRRangeLow & WCdatByClientS$OverallLossRatio<TLRRangeHigh)
+
+                   WCdatByClientSS<-subset(WCdatByClientS,WCdatByClientS$OverallLossRatio>=TLRRangeLow & WCdatByClientS$OverallLossRatio<=TLRRangeHigh)
+                   if(nrow(WCdatByClientSS)<5){WCdatByClientSS<-WCdatByClientTopL}
                    WCdatByClientSX<-WCdatByClientSS[,c(AvgAnlPremium)]
                    WCdatByClientSY<-WCdatByClientSS[,c(OverallLossRatio)]
                    WCF<-as.data.frame(cbind(WCdatByClientSX,WCdatByClientSY))
@@ -42,17 +45,17 @@ shinyServer(function(input, output, session) {
                "Loss Ratio for Selected Period"={
                    YearRangeLow<-input$YearRange[1]
                    YearRangeHigh<-input$YearRange[2]
-                   SPLRRangeLow<-input$SPLRRange[1]
-                   SPLRRangeHigh<-input$SPLRRange[2]
-                   
+                   SPLRRange<-input$SPLRRange
+
                    WCdatS1<-subset(WCdat,WCdat$Year>=YearRangeLow & WCdat$Year<=YearRangeHigh)
                    WCdatS<-subset(WCdatS1,WCdatS1$Client %in% selectClients)
                    DT <- data.table(WCdatS)
                    WCdatAgg<-DT[, lapply(.SD,sum), by=list(Client)]
+                   if(nrow(WCdatAgg)<5){WCdatAgg<-WCdatByClientTopL}
                    WCdatAgg$SLossRatio<-round((WCdatAgg$Loss/WCdatAgg$Premium)*100,2)
                    WCdatAgg$AvgAnlPremium<-WCdatByClientS[match(WCdatAgg$Client, WCdatByClientS$Client),AvgAnlPremium]
-                   WCdatAggSub<-subset(WCdatAgg,WCdatAgg$SLossRatio>SPLRRangeLow & WCdatAgg$SLossRatio<SPLRRangeHigh)
-                   
+                   WCdatAggSub<-subset(WCdatAgg,WCdatAgg$SLossRatio<SPLRRange)
+                   if(nrow(WCdatAggSub)<5){WCdatAggSub<-WCdatByClientTopL}
                    WCX<-WCdatAggSub[,c(AvgAnlPremium)]
                    WCY<-WCdatAggSub[,c(SLossRatio)]
                    
@@ -63,8 +66,9 @@ shinyServer(function(input, output, session) {
                "Total Loss"={
                TotalLossRangeLow<-input$TotalLossRange[1]
                TotalLossRangeHigh<-input$TotalLossRange[2]
-               
+
                WCdatByClientSS<-subset(WCdatByClientS,WCdatByClientS$TotalLoss>TotalLossRangeLow & WCdatByClientS$TotalLoss<TotalLossRangeHigh)
+               if(nrow(WCdatByClientSS)<5){WCdatByClientSS<-WCdatByClientTopL}
                WCdatByClientSX<-WCdatByClientSS[,c(AvgAnlPremium)]
                WCdatByClientSY<-WCdatByClientSS[,c(TotalLoss)]
                WCF<-as.data.frame(cbind(WCdatByClientSX,WCdatByClientSY))

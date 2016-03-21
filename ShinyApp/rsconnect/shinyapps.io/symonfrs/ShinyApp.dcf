@@ -1,0 +1,9 @@
+name: ShinyApp
+account: symonfrs
+server: shinyapps.io
+appId: 89788
+bundleId: 399616
+url: https://symonfrs.shinyapps.io/ShinyApp/
+when: 1458531234.07407
+asMultiple: FALSE
+asStatic: FALSE

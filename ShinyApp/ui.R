@@ -22,7 +22,7 @@ shinyUI(pageWithSidebar(
                                      min=0,max=12,value=c(0,12),step=0.1)),
         conditionalPanel(condition="input.ycol=='Loss Ratio for Selected Period'",
                          sliderInput("SPLRRange","Select Loss Ratio Percentage Range:",
-                                     min=0,max=12,value=c(0,12),step=0.1)),
+                                     min=0,max=12,value=6,step=0.1)),
 
         numericInput('clusters', 'Number of k-means clusters', 5,
                      min = 1, max = 5)
